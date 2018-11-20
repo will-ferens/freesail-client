@@ -1,0 +1,5 @@
+export const addBeerActions = {
+    POST_BEER: 'POST_BEER',
+    POST_BEER_SUCCESS: 'POST_BEER_SUCCESS',
+    POST_BEER_FAILURE: 'POST_BEER_FAILURE',
+}
