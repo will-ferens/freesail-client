@@ -1,5 +1,6 @@
 import { addBeerActions } from '../constants/beer_constants'
 import { history } from '../helpers/history'
+import axios from 'axios'
 
 const ADD_URL = 'http://localhost:3001/beer'
 
@@ -18,24 +19,21 @@ export const addBeerFailure = error => ({
 })
 
 export function addBeer(beer) {
+    console.log(beer.labelImage)
     const formData = new FormData()
-    formData.append(beer)
+    formData.append('title', beer.title)
+    formData.append('style', beer.style)
+    formData.append('description', beer.description)
+    formData.append('abv', beer.abv)
+    formData.append('birthday', beer.birthday)
+    formData.append('labelImage', beer.labelImage)
+    const config = {
+        'content-type': 'multipart/form-data'
+    }
+    const post = axios.post(ADD_URL, formData, config)
 
-    return dispatch => {
-        dispatch(addBeerBegin())
-        return fetch(ADD_URL, {
-            method: 'POST',
-            'Accept': 'application/json',
-            'Content-Type': 'multipart/form-data',
-            body: formData
-        })
-        .then(response => {
-            return response.json()
-        })
-        .then(response => {
-            history.push('/')
-            dispatch(addBeerSuccess(response))
-        })
-        .catch(error => dispatch(addBeerFailure(error)))
+    return {
+        type: addBeerActions.POST_BEER_SUCCESS,
+        payload: post
     }
 }
