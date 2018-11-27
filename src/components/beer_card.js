@@ -1,34 +1,45 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { Card, CardImg, CardText, CardBody,
-    CardTitle, CardSubtitle, Button } from 'reactstrap'
+    CardTitle, CardSubtitle, Button, Col, Row } from 'reactstrap'
 
 const BeerCard = (props) => {
-    console.log(props)
-    const beerCards = props.beers.map(beer => {
-        return (
-            <Card>
-            <CardImg src="https://beerpulse.com/wp-content/uploads/2013/05/Duff-Beer-body-label.png"/>
-            <CardBody>
-                <CardTitle>{beer.title}</CardTitle>
-                <CardSubtitle>{beer.style}</CardSubtitle>
-                <CardText>{beer.description}</CardText>
-                <Button>View Detail</Button>
-            </CardBody>
-            </Card>
-        )
-    })
-    if(!props) {
-        return <div></div>
+
+    if(props.loading) {
+        return <div>Loading...</div>
     }
+
+    if(props.error) {
+        return <div>Whoops! There was an error.</div>
+    }
+
     if(props.beers != null) {
+        const beerCards = props.beers.beers.map(beer => {
+            return (
+                <Col sm="2.8">
+                    <Card key={beer._id}>
+                    <CardImg style={{width: '318px', height: '180px'}} src={beer.labelImage}/>
+                    <CardBody>
+                        <CardTitle>{beer.title}</CardTitle>
+                        <CardSubtitle>{beer.style}</CardSubtitle>
+                        <CardText><small>{beer.abv}% ABV</small></CardText>
+                        <CardText>{beer.description}</CardText>
+                        <Button>View Detail</Button>
+                    </CardBody>
+                    </Card>
+                </Col>
+            )
+        })
         
-        return <div></div>
+        return <Row>{beerCards}</Row>
     } 
-    if(props) {
-        return <div></div>
-    }
-    
     
 }
 
-export default BeerCard
+function mapStateToProps(state) {
+    return {
+        beers: state.beers
+    }
+}
+
+export default connect(mapStateToProps, null)(BeerCard)
