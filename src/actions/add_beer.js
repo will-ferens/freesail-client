@@ -1,5 +1,5 @@
 import { addBeerActions } from '../constants/beer_constants'
-import { history } from '../helpers/history'
+
 import axios from 'axios'
 
 const ADD_URL = 'http://localhost:3001/beer'

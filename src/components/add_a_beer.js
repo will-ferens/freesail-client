@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Button, FormGroup, Label, Input } from 'reactstrap'
 import DatePicker from 'react-date-picker'
-
+import { history } from '../helpers/history'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
@@ -16,7 +16,8 @@ class AddBeer extends Component {
             description: '',
             abv: '',
             date: new Date(),
-            labelImage: ''
+            labelImage: '',
+            success: false
         }
         this.onFormSubmit = this.onFormSubmit.bind(this)
     }
@@ -51,6 +52,7 @@ class AddBeer extends Component {
             labelImage: this.state.labelImage
         }
         this.props.addBeer(beer)
+
     }
     
     render() {
@@ -117,7 +119,6 @@ class AddBeer extends Component {
                             />
                         </div>
                     </div>
-
                     <Button type="submit" style={{marginTop: '10px'}} outline color="success">Submit</Button>
                 </form>
             </div>

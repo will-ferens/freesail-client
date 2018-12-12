@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom'
 import './styles/index.css'
 import Home from './components/home'
 import AddBeer from './components/add_a_beer'
+import Vote from './components/vote'
 import * as serviceWorker from './serviceWorker'
 import { BrowserRouter as Router, Route} from 'react-router-dom'
 
@@ -24,6 +25,7 @@ ReactDOM.render(
             <div>
                 <Route exact path="/" component={Home} />
                 <Route path="/add" component={AddBeer} />
+                <Route path="/vote" component={Vote} />
             </div>
         </Router>
     </Provider>,
